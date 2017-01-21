@@ -28,6 +28,14 @@ class MessageFormatter
         {
             trigger_error('This library currently supports English.', E_USER_ERROR);
         }
+
+
+        if (stripos($pattern, 'number,')) {
+        $x = explode('}', $pattern, 2);
+            $pattern = '0' . $x[1];
+            $args[0] = number_format($args[0], 2);
+        }
+
         $count = count($args) -1;
         $i = 0;
 

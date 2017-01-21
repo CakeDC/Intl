@@ -14,6 +14,7 @@ namespace CakeDC\Intl;
 
 class IntlDateFormatter
 {
+    const FULL = 0;
     const MEDIUM = 2;
     const SHORT = 3;
 }
