@@ -12,29 +12,21 @@
 namespace CakeDC\Intl;
 
 
-class MessageFormatter
+class Locale
 {
-    private $locale = 'en_US';
-    private $pattern;
-
-    public function __construct($locale, $pattern)
+    public static function getDefault()
     {
-        $this->locale = $locale;
-        $this->pattern = $pattern;
+        return 'en_US';
     }
-    public static function formatMessage($locale, $pattern, array $args)
+
+    public static function parseLocale($locale)
     {
         if($locale != 'en_US')
         {
             trigger_error('This library currently supports English.', E_USER_ERROR);
         }
-        $count = count($args) -1;
-        $i = 0;
 
-        do {
-            $pattern = str_replace("{$count}", $args[$i], $pattern);
-        }
-        while ($i > $count);
-        return  $pattern;
+        return array('language' => 'en');
     }
+
 }

@@ -9,7 +9,22 @@
  * @link https://www.cakedc.com
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-class_alias('CakeDC\Intl\MessageFormatter', 'MessageFormatter');
-class_alias('CakeDC\Intl\IntlDateFormatter', 'IntlDateFormatter');
-class_alias('CakeDC\Intl\Locale', 'Locale');
-class_alias('CakeDC\Intl\NumberFormatter', 'NumberFormatter');
+namespace CakeDC\Intl;
+
+
+class NumberFormatter
+{
+    const DECIMAL = 1;
+    const MIN_FRACTION_DIGITS = 7;
+    const MAX_FRACTION_DIGITS = 6;
+
+    public function setAttribute($attr, $value)
+    {
+
+    }
+    public function format($value, $type = null)
+    {
+
+    }
+
+}
