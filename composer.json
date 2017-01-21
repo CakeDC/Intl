@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cake\\Intl\\": "src"
+            "CakeDC\\Intl\\": "src"
         },
 		"files": ["src/intl_compat.php"]
     },
