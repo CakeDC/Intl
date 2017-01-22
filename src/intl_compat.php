@@ -9,7 +9,9 @@
  * @link https://www.cakedc.com
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-class_alias('CakeDC\Intl\MessageFormatter', 'MessageFormatter');
-class_alias('CakeDC\Intl\IntlDateFormatter', 'IntlDateFormatter');
-class_alias('CakeDC\Intl\Locale', 'Locale');
-class_alias('CakeDC\Intl\NumberFormatter', 'NumberFormatter');
+if (!extension_loaded('intl')) {
+    class_alias('CakeDC\Intl\MessageFormatter', 'MessageFormatter');
+    class_alias('CakeDC\Intl\IntlDateFormatter', 'IntlDateFormatter');
+    class_alias('CakeDC\Intl\Locale', 'Locale');
+    class_alias('CakeDC\Intl\NumberFormatter', 'NumberFormatter');
+}
