@@ -1,6 +1,6 @@
 {
     "name": "cakedc/intl",
-    "description": "Simple replacement library if intl PHP extension in not installed",
+    "description": "Simple replacement library if intl PHP extension is not installed",
     "type": "library",
     "keywords": [
         "cakephp",
