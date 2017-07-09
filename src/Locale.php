@@ -21,6 +21,9 @@ class Locale
 
     public static function parseLocale($locale)
     {
+        if ($locale == null) {
+            return array('language' => 'en');
+        }
         if($locale != 'en_US')
         {
             trigger_error('This library currently supports English.', E_USER_ERROR);
@@ -28,5 +31,4 @@ class Locale
 
         return array('language' => 'en');
     }
-
 }
