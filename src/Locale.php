@@ -24,8 +24,7 @@ class Locale
         if ($locale == null) {
             return array('language' => 'en');
         }
-        if($locale != 'en_US')
-        {
+        if ($locale != 'en_US') {
             trigger_error('This library currently supports English.', E_USER_ERROR);
         }
 

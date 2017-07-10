@@ -14,7 +14,7 @@ if (!extension_loaded('intl')) {
     class_alias('CakeDC\Intl\IntlDateFormatter', 'IntlDateFormatter');
     class_alias('CakeDC\Intl\Locale', 'Locale');
     class_alias('CakeDC\Intl\NumberFormatter', 'NumberFormatter');
-    // class_alias('CakeDC\Intl\IntlGregorianCalendar', 'IntlGregorianCalendar');
+    class_alias('CakeDC\Intl\IntlGregorianCalendar', 'IntlGregorianCalendar');
 
     define('INTL_ICU_VERSION', "4.8.1.1");
     define('INTL_ICU_DATA_VERSION', "4.8.1");

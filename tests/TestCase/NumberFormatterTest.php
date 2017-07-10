@@ -88,7 +88,8 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
             "one million two hundred thirty-four thousand five hundred sixty-seven point eight nine one two three four five seven",
             "1,234,568th",
             "343:56:08",
-            "#####.###",];
+            "#####.###",
+        ];
 
         $locales = [
             'en_US',
@@ -99,7 +100,9 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
 
             foreach ($styles as $style => $pattern) {
                 $fmt = new NumberFormatter($locale, $style, $pattern);
-                isset($integer[$style]) ? $this->assertEquals($expected[$i], $fmt->format($number, NumberFormatter::TYPE_INT32)) : $this->assertEquals($expected[$i], $fmt->format(($number)));
+                isset($integer[$style]) ? $this->assertEquals($expected[$i],
+                    $fmt->format($number, NumberFormatter::TYPE_INT32)) : $this->assertEquals($expected[$i],
+                    $fmt->format(($number)));
                 $i++;
             }
         }
@@ -154,18 +157,20 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
 
             // Set new attribute value.
             $rc = $fmt->setAttribute($attr, $new_val);
-            if ($rc)
+            if ($rc) {
                 $res_str .= "Setting attribute: ok\n";
-            else
+            } else {
                 $res_str .= sprintf("Setting attribute failed: %s\n");
+            }
 
             // Format the number using the new value.
             $rc = $fmt->format($number);
 
             // Get current value of the attribute and check if it equals $new_val.
             $attr_val_check = $fmt->getAttribute($attr);
-            if ($attr_val_check !== $new_val)
+            if ($attr_val_check !== $new_val) {
                 $res_str .= "ERROR: New $attr_name attribute value has not been set correctly.\n";
+            }
 
             $ps = $fmt->parse($rc);
 
@@ -178,8 +183,9 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
             // Restore original attribute of the  value
             if ($attr != NumberFormatter::INTEGER_DIGITS && $attr != NumberFormatter::FRACTION_DIGITS
                 && $attr != NumberFormatter::FORMAT_WIDTH && $attr != NumberFormatter::SIGNIFICANT_DIGITS_USED
-            )
+            ) {
                 $fmt->setAttribute($attr, $orig_val);
+            }
         }
 
         debug($res_str);
@@ -197,13 +203,15 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
 
         // Set a new pattern.
         $res = $fmt->setPattern("0.0");
-        if ($res === false)
+        if ($res === false) {
             $res_str .= $fmt->getErrorMessage() . "\n";
+        }
 
         // Check if the pattern has been changed.
         $res = $fmt->getPattern();
-        if ($res === false)
+        if ($res === false) {
             $res_str .= $fmt->getErrorMessage() . "\n";
+        }
         $res_str .= "New pattern: '" . $fmt->getPattern() . "'\n";
         $res_str .= "Formatted number: " . $fmt->format($test_value) . "\n";
 
@@ -218,26 +226,106 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
     {
         $longstr = str_repeat("blah", 10);
         $symbols = array(
-            'DECIMAL_SEPARATOR_SYMBOL' => array(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL, '_._', 12345.123456, NumberFormatter::DECIMAL),
-            'GROUPING_SEPARATOR_SYMBOL' => array(NumberFormatter::GROUPING_SEPARATOR_SYMBOL, '_,_', 12345.123456, NumberFormatter::DECIMAL),
-            'PATTERN_SEPARATOR_SYMBOL' => array(NumberFormatter::PATTERN_SEPARATOR_SYMBOL, '_;_', 12345.123456, NumberFormatter::DECIMAL),
+            'DECIMAL_SEPARATOR_SYMBOL' => array(
+                NumberFormatter::DECIMAL_SEPARATOR_SYMBOL,
+                '_._',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
+            'GROUPING_SEPARATOR_SYMBOL' => array(
+                NumberFormatter::GROUPING_SEPARATOR_SYMBOL,
+                '_,_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
+            'PATTERN_SEPARATOR_SYMBOL' => array(
+                NumberFormatter::PATTERN_SEPARATOR_SYMBOL,
+                '_;_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
             'PERCENT_SYMBOL' => array(NumberFormatter::PERCENT_SYMBOL, '_%_', 12345.123456, NumberFormatter::PERCENT),
-            'ZERO_DIGIT_SYMBOL' => array(NumberFormatter::ZERO_DIGIT_SYMBOL, '_ZD_', 12345.123456, NumberFormatter::DECIMAL),
+            'ZERO_DIGIT_SYMBOL' => array(
+                NumberFormatter::ZERO_DIGIT_SYMBOL,
+                '_ZD_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
             'DIGIT_SYMBOL' => array(NumberFormatter::DIGIT_SYMBOL, '_DS_', 12345.123456, NumberFormatter::DECIMAL),
-            'MINUS_SIGN_SYMBOL' => array(NumberFormatter::MINUS_SIGN_SYMBOL, '_-_', -12345.123456, NumberFormatter::DECIMAL),
-            'PLUS_SIGN_SYMBOL' => array(NumberFormatter::PLUS_SIGN_SYMBOL, '_+_', 12345.123456, NumberFormatter::SCIENTIFIC),
-            'CURRENCY_SYMBOL' => array(NumberFormatter::CURRENCY_SYMBOL, '_$_', 12345.123456, NumberFormatter::CURRENCY),
-            'INTL_CURRENCY_SYMBOL' => array(NumberFormatter::INTL_CURRENCY_SYMBOL, '_$_', 12345.123456, NumberFormatter::CURRENCY),
-            'MONETARY_SEPARATOR_SYMBOL' => array(NumberFormatter::MONETARY_SEPARATOR_SYMBOL, '_MS_', 12345.123456, NumberFormatter::CURRENCY),
-            'EXPONENTIAL_SYMBOL' => array(NumberFormatter::EXPONENTIAL_SYMBOL, '_E_', 12345.123456, NumberFormatter::SCIENTIFIC),
+            'MINUS_SIGN_SYMBOL' => array(
+                NumberFormatter::MINUS_SIGN_SYMBOL,
+                '_-_',
+                -12345.123456,
+                NumberFormatter::DECIMAL
+            ),
+            'PLUS_SIGN_SYMBOL' => array(
+                NumberFormatter::PLUS_SIGN_SYMBOL,
+                '_+_',
+                12345.123456,
+                NumberFormatter::SCIENTIFIC
+            ),
+            'CURRENCY_SYMBOL' => array(
+                NumberFormatter::CURRENCY_SYMBOL,
+                '_$_',
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
+            'INTL_CURRENCY_SYMBOL' => array(
+                NumberFormatter::INTL_CURRENCY_SYMBOL,
+                '_$_',
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
+            'MONETARY_SEPARATOR_SYMBOL' => array(
+                NumberFormatter::MONETARY_SEPARATOR_SYMBOL,
+                '_MS_',
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
+            'EXPONENTIAL_SYMBOL' => array(
+                NumberFormatter::EXPONENTIAL_SYMBOL,
+                '_E_',
+                12345.123456,
+                NumberFormatter::SCIENTIFIC
+            ),
             'PERMILL_SYMBOL' => array(NumberFormatter::PERMILL_SYMBOL, '_PS_', 12345.123456, NumberFormatter::DECIMAL),
-            'PAD_ESCAPE_SYMBOL' => array(NumberFormatter::PAD_ESCAPE_SYMBOL, '_PE_', 12345.123456, NumberFormatter::DECIMAL),
-            'INFINITY_SYMBOL' => array(NumberFormatter::INFINITY_SYMBOL, '_IS_', 12345.123456, NumberFormatter::DECIMAL),
+            'PAD_ESCAPE_SYMBOL' => array(
+                NumberFormatter::PAD_ESCAPE_SYMBOL,
+                '_PE_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
+            'INFINITY_SYMBOL' => array(
+                NumberFormatter::INFINITY_SYMBOL,
+                '_IS_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
             'NAN_SYMBOL' => array(NumberFormatter::NAN_SYMBOL, '_N_', 12345.123456, NumberFormatter::DECIMAL),
-            'SIGNIFICANT_DIGIT_SYMBOL' => array(NumberFormatter::SIGNIFICANT_DIGIT_SYMBOL, '_SD_', 12345.123456, NumberFormatter::DECIMAL),
-            'MONETARY_GROUPING_SEPARATOR_SYMBOL' => array(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL, '_MG_', 12345.123456, NumberFormatter::CURRENCY),
-            'MONETARY_GROUPING_SEPARATOR_SYMBOL-2' => array(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL, "&nbsp;", 12345.123456, NumberFormatter::CURRENCY),
-            'MONETARY_GROUPING_SEPARATOR_SYMBOL-3' => array(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL, $longstr, 12345.123456, NumberFormatter::CURRENCY),
+            'SIGNIFICANT_DIGIT_SYMBOL' => array(
+                NumberFormatter::SIGNIFICANT_DIGIT_SYMBOL,
+                '_SD_',
+                12345.123456,
+                NumberFormatter::DECIMAL
+            ),
+            'MONETARY_GROUPING_SEPARATOR_SYMBOL' => array(
+                NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL,
+                '_MG_',
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
+            'MONETARY_GROUPING_SEPARATOR_SYMBOL-2' => array(
+                NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL,
+                "&nbsp;",
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
+            'MONETARY_GROUPING_SEPARATOR_SYMBOL-3' => array(
+                NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL,
+                $longstr,
+                12345.123456,
+                NumberFormatter::CURRENCY
+            ),
         );
 
         $res_str = '';
@@ -255,19 +343,22 @@ class NumberFormatterTest extends PHPUnit_Framework_TestCase
 
             // Set a new symbol value.
             $res_val = $fmt->setSymbol($symb, $new_val);
-            if (!$res_val)
+            if (!$res_val) {
                 $res_str .= "set_symbol() error: " . $fmt->getErrorMessage() . "\n";
+            }
 
             // Get the symbol value back.
             $new_val_check = $fmt->getSymbol($symb);
-            if (!$new_val_check)
+            if (!$new_val_check) {
                 $res_str .= "get_symbol() error: " . $fmt->getErrorMessage() . "\n";
+            }
 
             $res_str .= "New symbol: [$new_val_check]\n";
 
             // Check if the new value has been set.
-            if ($new_val_check !== $new_val)
+            if ($new_val_check !== $new_val) {
                 $res_str .= "ERROR: New $symb_name symbol value has not been set correctly.\n";
+            }
 
             // Format the number using the new value.
             $s = $fmt->format($number);

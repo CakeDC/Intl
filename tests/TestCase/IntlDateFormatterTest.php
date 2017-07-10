@@ -32,9 +32,10 @@ class IntlDateFormatterTest extends PHPUnit_Framework_TestCase
 
     function testIntlDateFormatterGetLocal()
     {
-        $goodFormatter = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL, new DateTimeZone("UTC"));
+        $Formatter = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL,
+            new DateTimeZone("UTC"));
         $expected = 'en';
-        $this->assertEquals($expected, $goodFormatter->getLocale());
+        $this->assertEquals($expected, $Formatter->getLocale());
     }
 
     function testFormatEn()
