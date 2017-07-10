@@ -31,7 +31,7 @@ class IntlDateFormatter
     private $timezone;
     private $calendar;
     private $pattern;
-    private $offest = array('operator' => '+', 'value' => array('h' => '0H', 'm' => '0M'), 'output' => null);
+    private $offest = ['operator' => '+', 'value' => ['h' => '0H', 'm' => '0M'], 'output' => null];
 
     public function __construct($locale, $datetype = IntlDateFormatter::FULL, $timetype = IntlDateFormatter::FULL, $timezone = null, $calendar = IntlDateFormatter::GREGORIAN, $pattern = '')
     {
@@ -59,7 +59,7 @@ class IntlDateFormatter
             $datetime->add(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
         }
         $return = $datetime->format($this->pattern);
-        date_default_timezone_set(ini_get('date.timezone'));
+
         if (strpos($this->pattern, 'T')) {
             return preg_replace('~,(?!.*,)~', ' at', $return . $this->offest['output']);
         }
