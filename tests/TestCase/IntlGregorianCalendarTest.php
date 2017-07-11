@@ -11,6 +11,7 @@
  */
 namespace CakeDC\Intl\TestCase;
 
+use IntlCalendar;
 use IntlGregorianCalendar;
 use PHPUnit_Framework_TestCase;
 

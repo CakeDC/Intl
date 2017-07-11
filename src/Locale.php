@@ -11,6 +11,7 @@
  */
 namespace CakeDC\Intl;
 
+use UnexpectedValueException;
 
 class Locale
 {
@@ -19,15 +20,25 @@ class Locale
         return 'en_US';
     }
 
+    public static function getDisplayLanguage($locale, $in_locale = null)
+    {
+
+        $locale = self::parseLocale($locale);
+
+        if (isset($locale['language'])) {
+            return "English";
+        }
+    }
+
     public static function parseLocale($locale)
     {
         if ($locale == null) {
-            return array('language' => 'en');
+            return ['language' => 'en', 'region' => 'US',];
         }
-        if ($locale != 'en_US') {
-            trigger_error('This library currently supports English.', E_USER_ERROR);
+        if ($locale !== 'en_US' || $locale !== 'en') {
+            throw new UnexpectedValueException("This library currently supports English, $locale was used.");
         }
 
-        return array('language' => 'en');
+        return ['language' => 'en', 'region' => 'US',];
     }
 }
