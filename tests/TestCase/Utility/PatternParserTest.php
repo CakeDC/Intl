@@ -1,16 +1,38 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: phpnut
- * Date: 7/11/17
- * Time: 8:13 PM
+ * Copyright 2017, Cake Development Corporation (http://cakedc.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright 2017, Cake Development Corporation (http://cakedc.com)
+ * @link https://www.cakedc.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-namespace cakedc\intl\tests\TestCase\Untility;
+namespace CakeDC\intl\tests\TestCase\Utility;
 
+use IntlDateFormatter;
+use PHPUnit_Framework_TestCase;
 
-class PatternParserTest
+class PatternParserTest extends PHPUnit_Framework_TestCase
 {
+    private $time = 1499821968;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+
+    }
+
+    public function testFormatingWithGSymbol()
+    {
+        $pattern = 'G';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('AD', $fmt->format($this->time));
+    }
 
     /*
     Timestamp:    1499821968
