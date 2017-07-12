@@ -11,6 +11,7 @@
  */
 namespace CakeDC\Intl;
 
+use CakeDC\intl\src\Utility\PatternParser;
 use DateInterval;
 use DateTime;
 use Locale;
@@ -33,8 +34,14 @@ class IntlDateFormatter
     private $pattern;
     private $offest = ['operator' => '+', 'value' => ['h' => '0H', 'm' => '0M'], 'output' => null];
 
-    public function __construct($locale, $datetype = IntlDateFormatter::FULL, $timetype = IntlDateFormatter::FULL, $timezone = null, $calendar = IntlDateFormatter::GREGORIAN, $pattern = '')
-    {
+    public function __construct(
+        $locale,
+        $datetype = IntlDateFormatter::FULL,
+        $timetype = IntlDateFormatter::FULL,
+        $timezone = null,
+        $calendar = IntlDateFormatter::GREGORIAN,
+        $pattern = ''
+    ) {
         $locale = Locale::parseLocale($locale);
         $this->locale = $locale['language'];
         $this->datetype = $datetype;
@@ -89,10 +96,12 @@ class IntlDateFormatter
             if (strpos($zone, '+')) {
                 $time = explode(':', $values[1]);
                 $this->offest['output'] = '+' . $values[1];
-            } else if (strpos($zone, '-')) {
-                $values = explode('-', $zone);
-                $time = explode(':', $values[1]);
-                $this->offest['output'] = '-' . $values[1];
+            } else {
+                if (strpos($zone, '-')) {
+                    $values = explode('-', $zone);
+                    $time = explode(':', $values[1]);
+                    $this->offest['output'] = '-' . $values[1];
+                }
             }
 
             $this->offest['operator'] = $oper;
@@ -173,5 +182,12 @@ class IntlDateFormatter
                     break;
             }
         }
+    }
+
+
+    protected function parsePattern($pattern)
+    {
+        $formater = new PatternParser($pattern);
+        $formater->parse();
     }
 }

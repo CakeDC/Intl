@@ -38,6 +38,17 @@ class IntlDateFormatterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $Formatter->getLocale());
     }
 
+    function testUsingDifferentPattern()
+    {
+        $Formatter = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $Formatter->setPattern('yyyy-MM-dd');
+        debug($Formatter->format('1481155200'));
+
+        $Formatter = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $Formatter->setPattern('yy-M-d');
+        debug($Formatter->format('1481155200'));
+    }
+
     function testFormatEn()
     {
 
