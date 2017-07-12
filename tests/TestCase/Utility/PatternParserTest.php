@@ -17,16 +17,18 @@ use PHPUnit_Framework_TestCase;
 
 class PatternParserTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Timestamp:    1499821968
+     */
     private $time = 1499821968;
 
     public function setUp()
     {
         parent::setUp();
-
-
+        date_default_timezone_set('America/Chicago');
     }
 
-    public function testFormatingWithGSymbol()
+    public function testFormatingWithSymbolUpperG()
     {
         $pattern = 'G';
         $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
@@ -34,24 +36,134 @@ class PatternParserTest extends PHPUnit_Framework_TestCase
         $this->assertSame('AD', $fmt->format($this->time));
     }
 
+    public function testFormatingWithSymbolUpperGG()
+    {
+        $pattern = 'GG';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('AD', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperGGG()
+    {
+        $pattern = 'GGG';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('AD', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperGGGG()
+    {
+        $pattern = 'GGGG';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('Anno Domini', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperGGGGG()
+    {
+        $pattern = 'GGGGG';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('A', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLowery()
+    {
+        $pattern = 'y';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('2017', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLoweryy()
+    {
+        $pattern = 'yy';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('17', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLoweryyyy()
+    {
+        $pattern = 'yyyy';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('2017', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLoweru()
+    {
+        $pattern = 'u';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('2017', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperU()
+    {
+        $pattern = 'u';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('2017', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLowerr()
+    {
+        $pattern = 'r';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('2017', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperQ()
+    {
+        $pattern = 'Q';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('3', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperQQ()
+    {
+        $pattern = 'QQ';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('03', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperQQQ()
+    {
+        $pattern = 'QQQ';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('Q3', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperQQQQ()
+    {
+        $pattern = 'QQQQ';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('3rd quarter', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolUpperQQQQQ()
+    {
+        $pattern = 'QQQQQ';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('3rd quarter', $fmt->format($this->time));
+    }
+
+    public function testFormatingWithSymbolLowerq()
+    {
+        $pattern = 'q';
+        $fmt = new IntlDateFormatter('en_US', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $fmt->setPattern($pattern);
+        $this->assertSame('', $fmt->format($this->time));
+    }
     /*
-    Timestamp:    1499821968
-    G => AD
-    GG => AD
-    GGG => AD
-    GGGG => Anno Domini
-    GGGGG => A
-    yy => 17
-    y => 2017
-    yyyy => 2017
-    u => 2017
-    U => 2017
-    r => 2017
-    Q => 3
-    QQ => 03
-    QQQ => Q3
-    QQQQ => 3rd quarter
-    QQQQQ => 3rd quarter
     q => 3
     qq => 03
     qqq => Q3
@@ -139,6 +251,7 @@ class PatternParserTest extends PHPUnit_Framework_TestCase
     xxx => -05:00
     xxxx => -0500
     xxxxx => -05:00
+    MMMM dd, yyyy h:m a => July 11, 2017 8:12 PM
     */
 
 }
