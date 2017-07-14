@@ -20,7 +20,6 @@ if (!extension_loaded('intl')) {
     define('INTL_ICU_VERSION', "4.8.1.1");
     define('INTL_ICU_DATA_VERSION', "4.8.1");
     /**x
-     * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
      * Create a date formatter
      * @link http://php.net/manual/en/intldateformatter.create.php
      * @param string $locale <p>
@@ -61,7 +60,6 @@ if (!extension_loaded('intl')) {
     }
 
     /**
-     * (PHP &gt;= 5.4.0, PECL intl &gt;= 2.0.0)<br/>
      * Transliterate a string
      * @link http://php.net/manual/en/transliterator.transliterate.php
      * @param Transliterator|string $transliterator
