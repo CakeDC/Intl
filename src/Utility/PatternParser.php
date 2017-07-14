@@ -20,12 +20,6 @@ class PatternParser
      */
     private $symbols =
         [
-            'GGGGG' => 'A',
-            'GGGGG' => 'A',
-            'GGGG' => 'Anno Domini',
-            'GGG' => 'AD',
-            'GG' => 'AD',
-            'G' => 'AD',
             'yyyy' => 'Y',
             'yy' => 'y',
             'y' => 'Y',
@@ -55,7 +49,7 @@ class PatternParser
             'ccc' => 'D',
             'cc' => 'N',
             'c' => 'N',
-            'a' => 'a',
+            'a' => 'A',
             'hh' => 'h',
             'h' => 'g',
             'HH' => 'H',
@@ -77,6 +71,12 @@ class PatternParser
 
     private $exceptions =
         [
+            'GGGGG',
+            'GGGGG',
+            'GGGG',
+            'GGG',
+            'GG',
+            'G',
             'u',
             'U',
             'r',
@@ -166,6 +166,7 @@ class PatternParser
     public function format()
     {
         $string = $this->pattern;
+        $date = '';
 
         if (preg_match('/\'(?<match>[^\']+)\'(?<date>[^\'.]+)/uism', $string, $found)) {
             $string = $this->escapeString($found['match']);
@@ -188,7 +189,7 @@ class PatternParser
     {
         $escape = '\\';
         $chars = str_split($string);
-        return $escape . implode($escape, $chars);;
+        return $escape . implode($escape, $chars);
     }
 
     /**
@@ -200,8 +201,10 @@ class PatternParser
         $matched = [];
 
         foreach ($this->exceptions as $exception) {
-            if (strpos($string, $exception)) {
-                throw new \Exception('This library does not implement these charecters, install intl extention to use http://php.net/manual/en/book.intl.php');
+            $pos = strpos($string, $exception);
+            if ($pos !== false) {
+                throw new \Exception("This library does not implement the $exception sybmol, install intl extention to use http://php.net/manual/en/book.intl.php");
+                break;
             }
         }
 
