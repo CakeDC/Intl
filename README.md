@@ -13,8 +13,8 @@ Versions and branches
 Requirements
 ============
 
-* CakePHP 3.0+
-* PHP 5.6+ without intl extension (it will still install, but what is the point if you the extension).
+* CakePHP 3.4+
+* PHP 5.6+ without intl extension (it will still install, but what is the point if you have the extension).
 
 Installation
 ============
@@ -24,8 +24,7 @@ Composer
 Replace my_app with name of directory you will use.
 ```
 composer self-update && composer create-project --prefer-dist cakephp/app my_app_name --ignore-platform-reqs
-composer require cakedc/intl
-composer update
+composer self-update composer require cakedc/intl --ignore-platform-reqs
 ```
 Changes needed in CakePHP
 ------

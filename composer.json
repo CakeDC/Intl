@@ -25,7 +25,7 @@
         "source": "https://github.com/CakeDC/intl"
     },
     "require": {
-        "cakephp/cakephp": ">=3.3 <4.0.0"
+      "cakephp/cakephp": ">=3.4 <4.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
