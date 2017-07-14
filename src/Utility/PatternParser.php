@@ -203,7 +203,7 @@ class PatternParser
         foreach ($this->exceptions as $exception) {
             $pos = strpos($string, $exception);
             if ($pos !== false) {
-                throw new \Exception("This library does not implement the $exception sybmol, install intl extention to use http://php.net/manual/en/book.intl.php");
+                throw new \Exception("This library does not implement the $exception symbol, install intl extension to use http://php.net/manual/en/book.intl.php");
                 break;
             }
         }
