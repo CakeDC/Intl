@@ -12,6 +12,7 @@
 namespace CakeDC\Intl;
 
 use IntlDateFormatter;
+use Locale;
 use NumberFormatter;
 
 class MessageFormatter
@@ -20,17 +21,7 @@ class MessageFormatter
     private $pattern;
     private $errorCode = false;
     private $errorMessage = null;
-    private $type = [
-        'number' => ['none', 'interger', 'currency', 'percent', 'argStyleText',],
-        'date' => ['none', 'short', 'medium', 'long', 'full', 'argStyleText',],
-        'time' => ['none', 'short', 'medium', 'long', 'full', 'argStyleText',],
-        'ordinal' => ['st', 'nd', 'rd', 'th'],
-        'duration' => ['argStyleText',],
-        'spellout' => ['argStyleText',],
-        'plural' => 7,
-        'selectordinal' => 8,
-        'select' => 9,
-    ];
+
 
     public function __construct($locale, $pattern)
     {
@@ -40,9 +31,7 @@ class MessageFormatter
 
     public static function formatMessage($locale, $pattern, array $args)
     {
-        if ($locale != 'en_US') {
-            trigger_error('This library currently supports English.', E_USER_ERROR);
-        }
+        Locale::parseLocale($locale);
 
 
         if (stripos($pattern, 'number,')) {
@@ -117,7 +106,7 @@ class MessageFormatter
 
     }
 
-    protected function date($date, $type)
+    protected function date($date)
     {
         $type = ['none', 'short', 'medium', 'long', 'full', 'argStyleText',];
         $Date = new IntlDateFormatter();

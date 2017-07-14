@@ -11,7 +11,7 @@
  */
 namespace CakeDC\Intl;
 
-use CakeDC\intl\src\Utility\PatternParser;
+use CakeDC\Intl\Utility\PatternParser;
 use DateInterval;
 use DateTime;
 use Locale;
@@ -59,13 +59,15 @@ class IntlDateFormatter
     public function format($value)
     {
         date_default_timezone_set($this->getTimeZone());
-        $datetime = new DateTime(date($this->pattern, $value));
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp($value);
+
         if ($this->offest['operator'] === '-') {
-            $datetime->sub(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
+            $dateTime->sub(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
         } else {
-            $datetime->add(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
+            $dateTime->add(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
         }
-        $return = $datetime->format($this->pattern);
+        $return = $dateTime->format($this->pattern);
 
         if (strpos($this->pattern, 'T')) {
             return preg_replace('~,(?!.*,)~', ' at', $return . $this->offest['output']);
@@ -152,7 +154,8 @@ class IntlDateFormatter
     public function setPattern($pattern)
     {
         if (!empty($pattern)) {
-            $this->pattern = $pattern;
+            $fmt = new PatternParser($pattern);
+            $this->pattern = $fmt->format($pattern);
         } else {
             switch ($this->datetype) {
                 case IntlDateFormatter::LONG:
@@ -182,12 +185,5 @@ class IntlDateFormatter
                     break;
             }
         }
-    }
-
-
-    protected function parsePattern($pattern)
-    {
-        $formater = new PatternParser($pattern);
-        $formater->parse();
     }
 }

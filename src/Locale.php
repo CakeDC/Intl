@@ -22,7 +22,6 @@ class Locale
 
     public static function getDisplayLanguage($locale, $in_locale = null)
     {
-
         $locale = self::parseLocale($locale);
 
         if (isset($locale['language'])) {
@@ -35,7 +34,7 @@ class Locale
         if ($locale == null) {
             return ['language' => 'en', 'region' => 'US',];
         }
-        if ($locale !== 'en_US' || $locale !== 'en') {
+        if ($locale !== 'en_US' && $locale !== 'en') {
             throw new UnexpectedValueException("This library currently supports English, $locale was used.");
         }
 
