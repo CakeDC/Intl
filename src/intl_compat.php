@@ -16,6 +16,7 @@ if (!extension_loaded('intl')) {
     class_alias('CakeDC\Intl\NumberFormatter', 'NumberFormatter');
     class_alias('CakeDC\Intl\IntlCalendar', 'IntlCalendar');
     class_alias('CakeDC\Intl\IntlGregorianCalendar', 'IntlGregorianCalendar');
+    class_alias('CakeDC\Intl\Transliterator', 'Transliterator');
     define('INTL_ICU_VERSION', "4.8.1.1");
     define('INTL_ICU_DATA_VERSION', "4.8.1");
     /**x
@@ -57,5 +58,35 @@ if (!extension_loaded('intl')) {
     {
         return new IntlDateFormatter($locale, $datetype, $timetype, $timezone, $calendar, $pattern);
 
+    }
+
+    /**
+     * (PHP &gt;= 5.4.0, PECL intl &gt;= 2.0.0)<br/>
+     * Transliterate a string
+     * @link http://php.net/manual/en/transliterator.transliterate.php
+     * @param Transliterator|string $transliterator
+     * @param string $subject <p>
+     * The string to be transformed.
+     * </p>
+     * @param int $start [optional] <p>
+     * The start index (in UTF-16 code units) from which the string will start
+     * to be transformed, inclusive. Indexing starts at 0. The text before will
+     * be left as is.
+     * </p>
+     * @param int $end [optional] <p>
+     * The end index (in UTF-16 code units) until which the string will be
+     * transformed, exclusive. Indexing starts at 0. The text after will be
+     * left as is.
+     * </p>
+     * @return string The transfomed string on success, or <b>FALSE</b> on failure.
+     */
+    function transliterator_transliterate($transliterator, $subject, $start = null, $end = null)
+    {
+        if (is_a($transliterator, 'Transliterator')) {
+            return $transliterator->transliterate($subject, $start, $end);
+        } else {
+            $fmt = Transliterator::create($transliterator);
+            return $fmt->transliterate($transliterator, $subject);
+        }
     }
 }
