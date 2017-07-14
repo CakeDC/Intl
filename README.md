@@ -24,6 +24,7 @@ Composer
 Replace my_app with name of directory you will use.
 ```
 composer self-update && composer create-project --prefer-dist cakephp/app my_app_name --ignore-platform-reqs
+cd my_app_name
 composer self-update composer require cakedc/intl --ignore-platform-reqs
 ```
 Changes needed in CakePHP
