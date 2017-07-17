@@ -9,12 +9,14 @@
  * @link https://www.cakedc.com
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace CakeDC\Intl;
 
 use CakeDC\Intl\Utility\PatternParser;
 use DateInterval;
 use DateTime;
 use Locale;
+
 
 class IntlDateFormatter
 {
@@ -59,8 +61,12 @@ class IntlDateFormatter
     public function format($value)
     {
         date_default_timezone_set($this->getTimeZone());
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp($value);
+        if (is_a($value, 'DateTime')) {
+            $dateTime = $value;
+        } else {
+            $dateTime = new DateTime();
+            $dateTime->setTimestamp($value);
+        }
 
         if ($this->offest['operator'] === '-') {
             $dateTime->sub(new DateInterval('PT' . $this->offest['value']['h'] . $this->offest['value']['m']));
@@ -170,20 +176,21 @@ class IntlDateFormatter
                 default;
                     $this->pattern = 'l, F j, Y';
             }
-            switch ($this->timetype) {
-                case IntlDateFormatter::LONG:
-                    $this->pattern .= ', g:i:s A T';
-                    break;
-                case IntlDateFormatter::MEDIUM:
-                    $this->pattern .= ', g:i:s A';
-                    break;
-                case IntlDateFormatter::SHORT:
-                    $this->pattern .= ' g:i A';
-                    break;
-                default;
-                    $this->pattern .= ', g:i:s A T';
-                    break;
-            }
+            /*
+                        switch ($this->timetype) {
+                            case IntlDateFormatter::LONG:
+                                $this->pattern .= ', g:i:s A T';
+                                break;
+                            case IntlDateFormatter::MEDIUM:
+                                $this->pattern .= ', g:i:s A';
+                                break;
+                            case IntlDateFormatter::SHORT:
+                                $this->pattern .= ' g:i A';
+                                break;
+                            default;
+                                $this->pattern .= ', g:i:s A T';
+                                break;
+                        }*/
         }
     }
 }

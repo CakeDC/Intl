@@ -61,10 +61,35 @@ class MessageFormatter
 
     public function format(array $args)
     {
-        dump($this->getPattern());
-        dump(explode('{', $this->getPattern()));
+        $methods =
+            [
+                'number',
+                'date',
+                'time',
+                'plural',
+                'ordinal',
+                'duration',
+                'spellout',
+                'select',
+                'selectordinal',
 
-        dump($args);
+            ];
+        $return = [];
+
+        if (preg_match_all('/{(?<match>[^\\}]+)}/uiUsm', $this->getPattern(), $found)) {
+            foreach ($found['match'] as $key => $value) {
+                foreach ($methods as $key1 => $method) {
+                    if (strpos($value, $method) !== false) {
+                        $pattern = explode("$method,", $value);
+                        $return[] = $this->{$method}($args, $pattern[1]);
+                        break;
+                    }
+                }
+            }
+            return implode(' ', $return);
+        }
+
+
     }
 
     public function getPattern()
@@ -106,18 +131,25 @@ class MessageFormatter
 
     }
 
-    protected function date($date)
+    protected function date($timestamp, $type)
     {
-        $type = ['none', 'short', 'medium', 'long', 'full', 'argStyleText',];
-        $Date = new IntlDateFormatter();
-        return $Date->format($date);
+        $type = strtoupper($type);
+        $type = constant("IntlDateFormatter::$type");
+
+        $Date = new IntlDateFormatter('en_US', $type, IntlDateFormatter::NONE);
+        return $Date->format($timestamp[0]);
     }
 
-    protected function time($time)
+    protected function time($timestamp, $pattern)
     {
-        $type = ['none', 'short', 'medium', 'long', 'full', 'argStyleText',];
-        $Time = new IntlDateFormatter();
-        return $Time->format($time);
+        $Date = new IntlDateFormatter('en_US', IntlDateFormatter::NONE, IntlDateFormatter::NONE);
+        $Date->setPattern($pattern);
+        return $Date->format($timestamp[0]);
+    }
+
+    protected function plural()
+    {
+        //' => 7,
     }
 
     protected function ordinal($number)
@@ -141,10 +173,9 @@ class MessageFormatter
         $Num = new NumberFormatter();
         return $Num->format($number, $type);
     }
-
-    protected function plural()
+    protected function select()
     {
-        //' => 7,
+        //' => 9,
     }
 
     protected function selectordinal()
@@ -152,8 +183,4 @@ class MessageFormatter
         //' => 8,
     }
 
-    protected function select()
-    {
-        //' => 9,
-    }
 }

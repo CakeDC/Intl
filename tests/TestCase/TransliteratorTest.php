@@ -275,6 +275,10 @@ class TransliteratorTest extends PHPUnit_Framework_TestCase
                 'ź|ż|ž',
                 'z|z|z',
             ],
+            [
+                'Κοντογιαννάτος, Βασίλης',
+                'Kontogiannatos, Basiles',
+            ],
         ];
     }
 }
