@@ -30,7 +30,7 @@ composer self-update && composer require cakedc/intl --ignore-platform-reqs
 Changes needed in CakePHP
 ------
 
-in config/bootstrap.php change 
+in config/requirements.php (or config/bootstrap.php if you are using an older version of CakePHP) change 
 ```
 if (!extension_loaded('intl')) {
      trigger_error('You must enable the intl extension to use CakePHP.', E_USER_ERROR);
@@ -39,9 +39,9 @@ if (!extension_loaded('intl')) {
 to
 
 ```
-if (!extension_loaded('intl')) {
+//if (!extension_loaded('intl')) {
      //trigger_error('You must enable the intl extension to use CakePHP.', E_USER_ERROR);
-}
+//}
 ```
 
 
