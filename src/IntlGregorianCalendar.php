@@ -11,7 +11,7 @@
  */
 namespace CakeDC\Intl;
 
-use IntlCalendar;
+use CakeDC\Intl\IntlCalendar;
 
 class IntlGregorianCalendar extends IntlCalendar
 {
